@@ -1,3 +1,4 @@
+use rand::{thread_rng, seq:: SliceRandom};
 
 #[derive(Debug)]
 struct Deck {
@@ -6,7 +7,7 @@ struct Deck {
 
 impl Deck {
     fn new() -> Self {
-        let suits = ["Hearts", "Spade", "Diamonds"];
+                let suits = ["Hearts", "Spade", "Diamonds"];
         let values = ["Ace", "Two", "Three"];
         let mut cards = vec![];
         for suit in suits { 
@@ -15,12 +16,19 @@ impl Deck {
                 cards.push(card);
             }
         }
-        let deck: Deck = Deck { cards };
-        return deck;
+        Deck { cards }
+    }
+
+    fn shuffle(&mut self) {
+        let mut rng = thread_rng();
+        self.cards.shuffle(&mut rng);
     }
 }
 
 fn main() {
-    let deck = Deck::new();
+   let mut deck = Deck::new();
+
+   deck.shuffle();
+
    println!("Here your deck: {:#?}", deck);
 }
